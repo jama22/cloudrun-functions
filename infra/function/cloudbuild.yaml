@@ -1,0 +1,37 @@
+# gcloud builds submit --config cloudbuild-full.yaml --region northamerica-northeast2
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool: {}
+projectId: $PROJECT_ID
+steps:
+# build the function  using pack
+- id: 'Build the function using GCP buildpacks'
+  name: gcr.io/k8s-skaffold/pack
+  entrypoint: pack
+  args:
+  - build
+  - $LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction
+  - --path
+  - app/
+  - --builder
+  - gcr.io/buildpacks/builder
+  - --network
+  - cloudbuild
+
+- id: 'tf init'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  env:
+    - 'TF_VAR_function_image=$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction:latest'
+  args:
+  - '-c'
+  - | 
+    cd infra/function
+    echo ""
+    echo "*************** TERRAFORM INIT ******************"
+    echo ""
+    terraform init
+    terraform plan 
+    terraform apply -auto-approve
+images:
+- '$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction'
