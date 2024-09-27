@@ -18,7 +18,7 @@ steps:
   - --network
   - cloudbuild
 
-- id: 'tf init'
+- id: 'Terraform'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
   env:
@@ -31,7 +31,13 @@ steps:
     echo "*************** TERRAFORM INIT ******************"
     echo ""
     terraform init
+    echo ""
+    echo "*************** TERRAFORM PLAN ******************"
+    echo ""
     terraform plan 
+    echo ""
+    echo "*************** TERRAFORM APPLY ******************"
+    echo ""
     terraform apply -auto-approve
 images:
 - '$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction'
