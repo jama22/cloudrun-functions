@@ -1,9 +1,9 @@
 # cloudrun-functions
-testing cloud run functions
+Test repo demonstrating how to use Cloud Build and Terraform to enable IaC on Cloud Run functions.
 
 ## Deploy
 
-### Deploy with Cloud Functions v2 API
+## Deploy with Cloud Functions v2 API
 ```
 cd app
 gcloud functions deploy python-http-function \
@@ -16,7 +16,7 @@ gcloud functions deploy python-http-function \
     --allow-unauthenticated
 ```
 
-### Deploy with Run functions
+## Deploy with Run functions
 ```
 cd app
  gcloud beta run deploy python-http-function \
@@ -27,7 +27,7 @@ cd app
     --allow-unauthenticated
 ```
 
-### Build with Cloud Build & Terraform
+## Build with Cloud Build & Terraform
 1. In infra/func create a `terraform.tfvars` file with the following variables:
 
 ```
