@@ -28,6 +28,8 @@ cd app
 ```
 
 ## Build with Cloud Build & Terraform
+1. Create an AR repo `public-app` in your desired region
+
 1. In infra/func create a `terraform.tfvars` file with the following variables:
 
 ```

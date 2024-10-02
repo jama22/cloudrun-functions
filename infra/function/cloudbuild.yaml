@@ -18,6 +18,9 @@ steps:
   - --network
   - cloudbuild
 
+- id: 'Push to AR'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction']
 - id: 'Terraform'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
@@ -39,5 +42,3 @@ steps:
     echo "*************** TERRAFORM APPLY ******************"
     echo ""
     terraform apply -auto-approve
-images:
-- '$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction'
