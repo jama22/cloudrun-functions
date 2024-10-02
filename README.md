@@ -30,7 +30,7 @@ cd app
 ## Build with Cloud Build & Terraform
 1. Create an AR repo `public-app` in your desired region
 
-1. In infra/func create a `terraform.tfvars` file with the following variables:
+1. In `infra/function` create a `terraform.tfvars` file with the following variables:
 
 ```
 project_id = "GCP Project ID"
@@ -51,7 +51,7 @@ function_entrypoint = "hello-HTTP"
 2. move back to the root directory and run a build
 
 ```
-gcloud builds submit --config ./infra/function/cloudbuild.yaml --region northamerica-northeast2
+gcloud builds submit --config ./infra/functiontion/cloudbuild.yaml --region northamerica-northeast2
 ```
 
 ## Configuring a Build Trigger
