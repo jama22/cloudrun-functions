@@ -30,6 +30,16 @@ cd app
 ## Build with Cloud Build & Terraform
 1. Create an AR repo `public-app` in your desired region
 
+1. Create a storage bucket for managing your terraform state. Ensure this bucket has Object Versioning turned ON
+
+1. In `infra/function` create a file called `config.gcs.tfbackend` with the following:
+
+```
+bucket = "BACKEND_BUCKET_ID"
+```
+
+Where `BCKEND_BUCKET_ID` is the id of the GCS bucket you created in the previous step
+
 1. In `infra/function` create a `terraform.tfvars` file with the following variables:
 
 ```
@@ -48,7 +58,7 @@ function_entrypoint = "hello-HTTP"
 
 ```
 
-2. move back to the root directory and run a build
+2. Move back to the root directory and run a build
 
 ```
 gcloud builds submit --config ./infra/functiontion/cloudbuild.yaml --region northamerica-northeast2

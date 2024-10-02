@@ -21,7 +21,7 @@ steps:
 - id: 'Push to AR'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push', '$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction']
-- id: 'Terraform'
+- id: 'Terraform Init'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
   env:
@@ -33,12 +33,31 @@ steps:
     echo ""
     echo "*************** TERRAFORM INIT ******************"
     echo ""
-    terraform init
+    terraform init -backend-config=config.gcs.tfbackend|| exit 1
+
+- id: 'Terraform Plan'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  env:
+    - 'TF_VAR_function_image=$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction:latest'
+  args:
+  - '-c'
+  - |
+    cd infra/function
     echo ""
     echo "*************** TERRAFORM PLAN ******************"
     echo ""
-    terraform plan 
+    terraform plan || exit 1
+- id: 'Terraform Apply'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  env:
+    - 'TF_VAR_function_image=$LOCATION-docker.pkg.dev/$PROJECT_ID/public-app/hellofunction:latest'
+  args:
+  - '-c'
+  - |
+    cd infra/function
     echo ""
     echo "*************** TERRAFORM APPLY ******************"
     echo ""
-    terraform apply -auto-approve
+    terraform apply -auto-approve || exit 1
