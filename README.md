@@ -49,7 +49,7 @@ function_files = {
     "../../app/requirements.txt"  = "app/requirements.txt" # change if necessary
 }
 
-bucket_id = "GCS bucket ID"
+bucket_id = "GCS bucket ID"  # provide a new bucket ID (not the same as the one in step #1) where your source code will be stored
 bucket_location = "GCS bucket location"
 
 function_name = "your function name"
