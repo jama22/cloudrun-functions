@@ -54,7 +54,7 @@ bucket_location = "GCS bucket location"
 
 function_name = "your function name"
 function_location = "Run location"
-function_entrypoint = "hello-HTTP"
+function_entrypoint = "hello_http"
 
 ```
 
