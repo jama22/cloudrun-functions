@@ -61,7 +61,7 @@ function_entrypoint = "hello-HTTP"
 2. Move back to the root directory and run a build
 
 ```
-gcloud builds submit --config ./infra/functiontion/cloudbuild.yaml --region northamerica-northeast2
+gcloud builds submit --config ./infra/function/cloudbuild.yaml --region northamerica-northeast2
 ```
 
 ## Configuring a Build Trigger
