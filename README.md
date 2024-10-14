@@ -28,6 +28,12 @@ cd app
 ```
 
 ## Build with Cloud Build & Terraform
+
+**Note:** You will be creating **TWO** GCS buckets. 
+  1. First one is created manually, used to store the TF state and used by `config.gcs.tfbackend`
+  2. The second one is created automatically in the `main.tf`, and is specified in the `terraform.tfvars`. This bucket is used to hold the function source code
+
+### Set Up GCS to be the backend to hold TF state
 1. Create an AR repo `public-app` in your desired region
 
 1. Create a storage bucket for managing your terraform state. Ensure this bucket has Object Versioning turned ON
@@ -40,6 +46,7 @@ bucket = "BACKEND_BUCKET_ID"
 
 Where `BCKEND_BUCKET_ID` is the id of the GCS bucket you created in the previous step
 
+### Set up your TF variables for the function
 1. In `infra/function` create a `terraform.tfvars` file with the following variables:
 
 ```
