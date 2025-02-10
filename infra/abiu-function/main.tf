@@ -8,7 +8,9 @@ resource "google_cloud_run_v2_service" "default" {
   client   = "terraform"
   template {
     containers {
+      name = var.function_name
       image = var.function_image
+      base_image_uri = var.base_image
       resources {
         limits = {
           cpu    = var.run_cpu
@@ -17,6 +19,7 @@ resource "google_cloud_run_v2_service" "default" {
       }
     }
   }
+  
   build_config{
     function_target = var.function_target
     image_uri = var.function_image
